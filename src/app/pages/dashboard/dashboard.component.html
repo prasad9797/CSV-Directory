@@ -1,0 +1,7 @@
+<app-shared-navbar></app-shared-navbar>
+<div class="list-name">CVS Users</div>
+<ul>
+  <li *ngFor="let user of users">
+    <app-individual-user [user]="user"></app-individual-user>
+  </li>
+</ul>

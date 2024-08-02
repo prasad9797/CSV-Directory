@@ -1,0 +1,55 @@
+<app-shared-navbar></app-shared-navbar>
+<div class="container">
+  <h2>Contact us</h2>
+  <div *ngIf="!formSubmited; else showMessage">
+    <form [formGroup]="contactUsForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" />
+        <div
+          *ngIf="
+            contactUsForm.get('name').invalid &&
+            (contactUsForm.get('name').dirty ||
+              contactUsForm.get('name').touched)
+          "
+        >
+          <div *ngIf="contactUsForm.get('name').errors.required">
+            Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="message">Message</label>
+        <input id="message" formControlName="message" />
+        <div
+          *ngIf="
+            contactUsForm.get('message').invalid &&
+            (contactUsForm.get('message').dirty ||
+              contactUsForm.get('message').touched)
+          "
+        >
+          <div *ngIf="contactUsForm.get('message').errors.required">
+            Message is required.
+          </div>
+          <div *ngIf="contactUsForm.get('message').errors.minLength">
+            Message must be at least 10 characters long.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="contactUsForm.invalid">
+        Send Message
+      </button>
+    </form>
+  </div>
+  <ng-template #showMessage>
+    <div class="green">
+      Thank you for contacting us. We will be in touch shortly!
+    </div>
+    <hr />
+    <h3>You have submitted the following message:</h3>
+    <p><strong>Name:</strong> {{ contactUsFormValues?.name }}</p>
+    <p><strong>Message:</strong> {{ contactUsFormValues?.message }}</p>
+  </ng-template>
+</div>
